@@ -1,13 +1,14 @@
 from MatrixClass import Matrix
+import sys
 
 class Menu:
 
     def __init__(self):
-        self.counter = 0
-        self.__matrixList = [Matrix() for i in range(2)]
-        self.condition = "100"
-        self.__condition1 = "2"
-        self.__select_menu()
+        self.__delete()
+
+    def __loop(self):
+        while True:
+            self.__select_menu()
 
     def __selection_matrix(self):
         self.__condition1 = "3"
@@ -42,13 +43,15 @@ class Menu:
         self.__select_menu()
 
     def main_menu(self):
-        str_name = ["Choose an action", "1 Add data", "2 Read data"]
-        list_select = ["1", "2"]
+        str_name = ["Choose an action", "1 Add data", "2 Read data", "3 Exit"]
+        list_select = ["1", "2", "3"]
         param = Menu.input_menu(str_name, list_select)
         if param == "1":
             self.condition = "300"
         elif param == "2":
             self.condition = "200"
+        elif param == "3":
+            sys.exit()
         self.__select_menu()
 
     def menu_read(self):
@@ -90,6 +93,14 @@ class Menu:
         elif param == "5":
             self.__matrixList[0] = self.__matrixList[0].transporting_matrix()
         self.__matrixList[0].show_matrix()
+        self.__delete()
+
+    def __delete(self):
+        self.__matrixList = [Matrix() for i in range(2)]
+        self.condition = "100"
+        self.__condition1 = "2"
+        self.counter = 0
+        self.__loop()
 
     @staticmethod
     def input_menu(str_name, list_name):

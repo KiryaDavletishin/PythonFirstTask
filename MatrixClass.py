@@ -4,9 +4,9 @@ import random
 
 class Matrix:
 
-    def __init__(self):
-        self.line = 0
-        self.column = 0
+    def __init__(self, line=0, column=0):
+        self.line = line
+        self.column = column
         self.matrix = []
 
     @staticmethod
@@ -22,8 +22,8 @@ class Matrix:
     @staticmethod
     def __set_matrix_size():
         string = input("Enter the matrix size under space ")
-        list_size = string.split()
         try:
+            list_size = string.split()
             list_size = [int(list_size[0]), int(list_size[1])]
             return list_size
         except ValueError or IndexError:
@@ -44,17 +44,17 @@ class Matrix:
     @staticmethod
     def __set_matrix_index(size1, size2):
         matrix = []
-        for counterLine in range(size1):
-            string = input(f"Enter though a space {size2} number ")
-            list_index = string.split()
-            if len(list_index) == size2:
-                try:
+        try:
+            for counterLine in range(size1):
+                string = input(f"Enter though a space {size2} number ")
+                list_index = string.split()
+                if len(list_index) == size2:
                     matrix.append(Matrix.__string_list_to_int(list_index))
-                except ValueError:
-                    matrix.append(Matrix.__null_list(size2))
-            else:
-                print("Error number values")
-                matrix.append(Matrix.__null_list(size2))
+                else:
+                    print("You have introduced a wrong line")
+                    raise ValueError
+        except ValueError:
+            matrix = Matrix.__set_matrix_index(size1, size2)
         return matrix
 
     def init_matrix(self):
@@ -64,10 +64,8 @@ class Matrix:
         self.matrix = Matrix.__set_matrix_index(self.line, self.column)
 
     def show_matrix(self):
-        for index in range(len(self.matrix)):
-            for sub_index in range(len(self.matrix[index])):
-                print(self.matrix[index][sub_index], end=" ")
-            print()
+        for index in self.matrix:
+            print(index)
 
     def __compare_size(self, other):
         if self.line == other.line and self.column == other.column:
@@ -138,12 +136,6 @@ class Matrix:
         except FileNotFoundError:
             print("You enter wrong file's name")
             self.read_matrix_file()
-
-    @staticmethod
-    def delete_file():
-        str_name = "Enter file's name"
-        name = Matrix.__input_number(str_name)
-        os.remove(f"File/{name}.txt")
 
     @staticmethod
     def delete_data_base():
