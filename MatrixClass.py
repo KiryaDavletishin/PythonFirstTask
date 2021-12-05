@@ -36,10 +36,6 @@ class Matrix:
                 list1[index] = int(list1[index])
         return list1
 
-    @staticmethod
-    def __null_list(size2):
-        list1 = [0 for i in range(0, size2, 1)]
-        return list1
 
     @staticmethod
     def __set_matrix_index(size1, size2):
